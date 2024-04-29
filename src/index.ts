@@ -1,5 +1,7 @@
 import Server from "./server"
-import https from "https"
+import  env  from "dotenv";
+
+env.config();
 
 const port = 3000
 

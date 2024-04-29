@@ -14,8 +14,39 @@ datasource db {
 }
 
 model Person {
-id String @id @unique @default(uuid()) @map("idPerson") 
+id String @id @unique @default(uuid())
 name String 
 phone String
-isActive Boolean  
+isActive Boolean
+// Campo que se utiliza para indicar dia,hora y fecha de la creación del registro
+createdAt DateTime @default(now())
+// Campo que se utiliza para indicar dia,hora y fecha de la modificación del registro
+UpdatedAt DateTime @updatedAt
+// Referencia
+invoice Invoice []
+}
+
+model Product {
+  id String @id @unique @default(uuid())
+  nameProduct String
+  productDescription String
+  isActive Boolean
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  // Referencia
+  invoice Invoice []
+}
+
+model Invoice {
+  id String @id @unique @default(uuid())
+  idPerson String @unique
+  idProduct String @unique
+  invoiceDate String
+  invoiceStatus Boolean
+  isActive Boolean
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  // Relaciones
+  person Person @relation(fields: [idPerson], references: [id])
+  product Product @relation(fields: [idProduct], references: [id])
 }
